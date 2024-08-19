@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"fmt"
@@ -15,14 +15,14 @@ type Metadata struct {
 	Site      string
 }
 
-func getMetadata(url string) (Metadata, error) {
+func GetMetadata(url string) (Metadata, error) {
 	metadata := Metadata{Site: url}
 
-	dir := getDirPathFromUrl(url)
+	dir := GetDirPathFromUrl(url)
 
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		fmt.Printf("Directory does not exist for URL: %s. Downloading HTML...\n", url)
-		err = getHtml(url)
+		err = GetHtml(url)
 		if err != nil {
 			return metadata, fmt.Errorf("failed to download HTML for %s: %v", url, err)
 		}
@@ -57,7 +57,7 @@ func getMetadata(url string) (Metadata, error) {
 	}
 }
 
-func printMetadata(meta Metadata) {
+func PrintMetadata(meta Metadata) {
 	fmt.Printf("Site: %s\n", meta.Site)
 	fmt.Printf("Number of Links: %d\n", meta.NumLink)
 	fmt.Printf("Number of Images: %d\n", meta.NumImage)

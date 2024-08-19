@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/tokiie/fetch/utils"
 )
 
 func main() {
@@ -15,21 +16,21 @@ func main() {
 	}
 
 	for _, url := range urls {
-		processedURL, err := processURL(url)
+		processedURL, err := utils.ProcessURL(url)
 		if err != nil {
 			fmt.Printf("%s %s\n", url, err)
 			return
 		}
 		switch *showMetadata {
 		case true:
-			m, err := getMetadata(processedURL)
+			m, err := utils.GetMetadata(processedURL)
 			if err != nil {
 				fmt.Printf("error: %s\n", err)
 				return
 			}
-			printMetadata(m)
+			utils.PrintMetadata(m)
 		case false:
-			err := getHtml(processedURL)
+			err := utils.GetHtml(processedURL)
 			if err != nil {
 				fmt.Printf("%s %s\n", url, err)
 			}
